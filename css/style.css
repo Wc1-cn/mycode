@@ -1,0 +1,183 @@
+/* ==========================================================================
+   个人名片 - 样式文件
+   特点：简约风格 / 居中卡片 / 12px 圆角 / 柔和阴影 / 悬停上浮动画
+   说明：本文件为独立样式层，与 index.html 中的 HTML 结构完全分离
+   ========================================================================== */
+
+/* ---------- 1. 全局设计变量（统一管理配色与圆角，便于后续修改） ---------- */
+:root {
+    --color-text: #2f3542;            /* 正文主文字色（深蓝灰） */
+    --color-text-soft: #8a8f9a;       /* 辅助文字色（浅灰蓝） */
+    --color-accent: #4a8ef4;          /* 强调色（姓名下划线、链接悬停） */
+    --color-card-bg: #ffffff;         /* 卡片背景色（纯白） */
+    --color-body-bg-1: #f4f5fa;       /* 页面渐变背景色 1（浅灰蓝） */
+    --color-body-bg-2: #e9ecf3;       /* 页面渐变背景色 2（稍深灰蓝） */
+    --radius-card: 12px;              /* 卡片圆角（按要求 12px） */
+    --shadow-card:                    /* 卡片默认柔和阴影（多层叠加更自然） */
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        0 8px 20px rgba(0, 0, 0, 0.08);
+    --shadow-card-hover:              /* 卡片悬停时的阴影（更深、范围更大） */
+        0 2px 6px rgba(0, 0, 0, 0.07),
+        0 16px 32px rgba(0, 0, 0, 0.14);
+    --transition-base: 0.3s ease;     /* 全局过渡时长与缓动函数 */
+}
+
+/* ---------- 2. 全局重置与字体基础 ---------- */
+* {
+    margin: 0;                        /* 清除浏览器默认外边距 */
+    padding: 0;                       /* 清除浏览器默认内边距 */
+    box-sizing: border-box;           /* 盒模型：宽高包含内边距与边框 */
+}
+
+body {
+    /* 使用 Flexbox 让卡片在水平与垂直方向都居中 */
+    display: flex;
+    align-items: center;              /* 垂直居中 */
+    justify-content: center;          /* 水平居中 */
+    min-height: 100vh;                /* 至少占满一个视口高度，保证小屏也能居中 */
+    padding: 24px;                    /* 小屏时四周留白，避免卡片贴边 */
+
+    /* 简约的浅灰蓝线性渐变背景 */
+    background: linear-gradient(
+        135deg,                       /* 沿 135° 方向渐变 */
+        var(--color-body-bg-1),
+        var(--color-body-bg-2)
+    );
+
+    /* 字体栈：优先系统无衬线字体，保证中英文显示清晰 */
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei",
+                 "Hiragino Sans GB", "Helvetica Neue", Arial, sans-serif;
+    color: var(--color-text);         /* 全局文字颜色 */
+    line-height: 1.6;                 /* 舒适的行高 */
+}
+
+/* ---------- 3. 名片卡片主体样式 ---------- */
+.card {
+    width: 340px;                     /* 固定卡片宽度，简约卡片常见尺寸 */
+    background: var(--color-card-bg); /* 白色卡片背景 */
+
+    /* 核心要求 1：12px 圆角 */
+    border-radius: var(--radius-card);
+
+    /* 核心要求 2：柔和阴影（多层叠加，边缘自然） */
+    box-shadow: var(--shadow-card);
+
+    /* 核心要求 3：过渡动画（transform 与 box-shadow 均平滑变化，
+       保证悬停上浮与阴影加深时是"动画"而非生硬跳变） */
+    transition: transform var(--transition-base),
+                box-shadow var(--transition-base);
+
+    /* 卡片内部纵向排列并垂直居中 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 32px 28px;               /* 卡片内边距，保持内容透气 */
+}
+
+/* 核心要求 4：鼠标悬停时卡片轻微上浮（translateY 负值即向上） */
+.card:hover {
+    transform: translateY(-8px);      /* 上浮 8px，幅度轻微、不夸张 */
+    box-shadow: var(--shadow-card-hover); /* 悬停时阴影加深，突出浮起感 */
+}
+
+/* 为尊重"减少用户运动偏好"，悬停上浮动画可在系统偏好下自动取消 */
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;             /* 禁用动画 */
+    }
+}
+
+/* ---------- 4. 头像区域（圆形头像） ---------- */
+.card-avatar {
+    width: 104px;                     /* 头像区域尺寸 */
+    height: 104px;
+    margin-bottom: 20px;              /* 与下方姓名留白 */
+
+    /* 头像容器本身也为圆形 */
+    border-radius: 50%;
+}
+
+.avatar-img {
+    /* 核心要求 5：圆形头像（50% 圆角 = 正圆裁剪） */
+    border-radius: 50%;
+
+    width: 100%;                      /* 填满父容器 */
+    height: 100%;
+    object-fit: cover;                /* 图片保持比例裁切填充，不平铺变形 */
+    display: block;
+
+    /* 头像边缘的细描边，让头像与白色卡片自然衔接 */
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    background: #eef1f7;              /* 图片加载为空时的浅色兜底 */
+}
+
+/* ---------- 5. 姓名与职位信息区 ---------- */
+.card-info {
+    text-align: center;               /* 居中排布 */
+}
+
+.card-name {
+    font-size: 24px;                  /* 姓名突出显示 */
+    font-weight: 700;
+    letter-spacing: 1px;              /* 字距微调，更显精致 */
+    color: var(--color-text);
+}
+
+/* 姓名下方的简短强调分隔线（简约风格常用装饰） */
+.card-name::after {
+    content: "";
+    display: block;                   /* 块级元素换行，位于姓名下方 */
+    width: 36px;                      /* 短线条长度 */
+    height: 3px;
+    margin: 10px auto;                /* 水平居中 */
+    border-radius: 2px;
+    background: var(--color-accent);  /* 使用强调色 */
+}
+
+.card-role {
+    font-size: 14px;
+    color: var(--color-text-soft);    /* 职位使用较浅的辅助色，形成层级对比 */
+    letter-spacing: 2px;
+    margin-top: 16px;
+}
+
+/* ---------- 6. 联系方式区 ---------- */
+.card-contacts {
+    margin-top: 24px;                 /* 与职位区留白 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;              /* 联系方式列表居中排列 */
+    gap: 10px;                        /* 两条联系方式之间的距离 */
+}
+
+.contact-item {
+    display: inline-flex;             /* 图标与文字同行 */
+    align-items: center;
+    gap: 8px;                         /* 图标与文字间距 */
+    text-decoration: none;            /* 去除链接默认下划线 */
+    font-size: 14px;
+    color: var(--color-text-soft);
+
+    /* 联系方式同样带平滑过渡，便于悬停变色 */
+    transition: color var(--transition-base);
+}
+
+/* 联系方式悬停时的强调色反馈 */
+.contact-item:hover {
+    color: var(--color-accent);
+}
+
+/* 图标尺寸统一由 SVG 的 width/height 决定，此处仅固定基线对齐 */
+.contact-icon {
+    flex-shrink: 0;                   /* 防止图标被文字挤压变形 */
+    vertical-align: middle;
+}
+
+/* ---------- 7. 卡片底部说明文字 ---------- */
+.card-footer {
+    margin-top: 24px;                 /* 与卡片主体留白 */
+    font-size: 12px;
+    color: var(--color-text-soft);
+}

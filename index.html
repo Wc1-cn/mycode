@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- ==================== 页面头部 ==================== -->
+    <meta charset="UTF-8">
+    <!-- 适配移动端，页面宽度随设备缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人名片 - 张三</title>
+
+    <!-- 引入外部独立样式文件（HTML 与 CSS 分离书写） -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ============ 名片卡片主体 ============ -->
+    <main class="card-wrap">
+
+        <!-- 名片卡片：12px 圆角 + 柔和阴影 + 悬停上浮动画（样式见 style.css） -->
+        <section class="card">
+
+            <!-- ---------- 头像区 ---------- -->
+            <div class="card-avatar">
+                <!--
+                    头像说明：
+                    1. 当前使用本地 SVG 占位头像，离线也能正常显示；
+                    2. 换成自己的照片时，仅需替换 src 指向的图片文件（如 my-photo.jpg）。
+                -->
+                <img
+                    class="avatar-img"
+                    src="avatars/avatar.svg"
+                    alt="张三的肖像头像"
+                >
+            </div>
+
+            <!-- ---------- 基本身份信息区 ---------- -->
+            <div class="card-info">
+                <!-- 姓名 -->
+                <h1 class="card-name">张三</h1>
+
+                <!-- 职位 -->
+                <p class="card-role">前端工程师</p>
+            </div>
+
+            <!-- ---------- 联系方式区（内联 SVG 图标，零外部依赖） ---------- -->
+            <div class="card-contacts">
+                <!-- 邮箱联系方式 -->
+                <a class="contact-item" href="mailto:zhangsan@example.com">
+                    <!-- 信封图标（免费开源的 Feather 图标风格，内联绘制、零外部依赖） -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="contact-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <!-- 邮箱文本（&#64; 与 &#46; 为防爬虫的字符实体编码） -->
+                    <span>zhangsan&#64;example&#46;com</span>
+                </a>
+
+                <!-- 电话联系方式 -->
+                <a class="contact-item" href="tel:+8613800001234">
+                    <!-- 电话图标（Feather 风格，内联、零外部依赖） -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="contact-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <!-- 电话号码 -->
+                    <span>+86 138-0000-1234</span>
+                </a>
+            </div>
+
+        </section>
+
+        <!-- 卡片底部版权小字 -->
+        <footer class="card-footer">
+            <p>欢迎通过以上方式与我联系</p>
+        </footer>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  头像占位图（简约风格 SVG）
+  - 背景使用与卡片协调的浅灰蓝渐变；
+  - 中央为简洁的人形轮廓，风格中性、适用范围广；
+  - 使用说明：将其替换为个人照片即可，无需改动 CSS。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+    <defs>
+        <!-- 头像背景渐变 -->
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#dfe7f5"/>
+            <stop offset="100%" stop-color="#c9d6ea"/>
+        </linearGradient>
+    </defs>
+
+    <!-- 圆形头像背景 -->
+    <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+
+    <!-- 人形轮廓：头部圆 -->
+    <circle cx="100" cy="88" r="30" fill="#5b6577" opacity="0.85"/>
+
+    <!-- 人形轮廓：身体（圆角矩形模拟肩部） -->
+    <rect x="62" y="112" width="76" height="52" rx="24" ry="18"
+          fill="#5b6577" opacity="0.85"/>
+</svg>
